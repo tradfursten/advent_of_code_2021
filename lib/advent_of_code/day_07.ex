@@ -13,10 +13,10 @@ defmodule AdventOfCode.Day07 do
         av > bv
       end
     end)
-    |> initiate_fule_count(&minimal_fuel/2)
+    |> initiate_fuel_count(&minimal_fuel/2)
   end
 
-  defp initiate_fule_count(crabs, fun) do
+  defp initiate_fuel_count(crabs, fun) do
     {min, _} = crabs |> Enum.min_by(fn {_x, xv} -> xv end)
     {max, _} = crabs |> Enum.max_by(fn {_x, xv} -> xv end)
 
@@ -57,6 +57,6 @@ defmodule AdventOfCode.Day07 do
         av > bv
       end
     end)
-    |> initiate_fule_count(&minimal_fuel2/2)
+    |> initiate_fuel_count(&minimal_fuel2/2)
   end
 end
