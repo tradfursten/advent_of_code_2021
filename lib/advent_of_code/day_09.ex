@@ -38,5 +38,31 @@ defmodule AdventOfCode.Day09 do
     ]
   end
   def part2(args) do
+    grid = args
+    |> String.trim()
+    |> String.split("\n")
+    |> Enum.with_index
+    |> Enum.flat_map(fn {row, y} ->
+      row
+      |> String.graphemes()
+      |> Enum.map(&String.to_integer/1)
+      |> Enum.with_index()
+      |> Enum.map(fn {cell, x} -> {{x, y}, cell} end)
+    end)
+    |> Map.new()
+
+    low_points = grid
+    |> Enum.filter(fn i -> is_low_point?(i, grid) end)
+    |> Enum.map(fn {p, _} -> basin(p, grid, MapSet.new([p])) |> Enum.count() end)
+    |> Enum.sort(:desc)
+    |> Enum.take(3)
+    |> Enum.product()
+  end
+
+  defp basin(point, grid, visited) do
+    neighbours(point)
+    |> Enum.map(fn n -> {n, grid[n]} end)
+    |> Enum.reject(fn {n, v} -> v in [9, nil] or MapSet.member?(visited, n) end)
+    |> Enum.reduce(visited, fn {n, _}, acc -> basin(n, grid, MapSet.put(acc, n)) end)
   end
 end
