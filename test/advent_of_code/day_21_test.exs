@@ -5,16 +5,19 @@ defmodule AdventOfCode.Day21Test do
 
   @tag :skip
   test "part1" do
-    input = nil
-    result = part1(input)
+    input = """
+Player 1 starting position: 4
+Player 2 starting position: 8
+"""
+    result = part1({4, 8})
+    |> IO.inspect
 
     assert result
   end
 
-  @tag :skip
   test "part2" do
-    input = nil
-    result = part2(input)
+    input = {4, 8}
+    result = part2(input) |> IO.inspect
 
     assert result
   end
